@@ -2,7 +2,7 @@
 Contenedor Docker que sirve como base para proyectos basados en SIU-Toba.
 
 ## Uso
-Los proyectos que quieran utilizar este proyecto deberán basar sus imagenes desde *siutoba/docker-web* usando FROM en el Dockerfile
+Los proyectos que quieran utilizar este proyecto deberán basar sus imagenes desde **siutoba/docker-web** usando FROM en el Dockerfile
 del proyecto:
 
 ```
@@ -10,7 +10,7 @@ FROM siutoba/docker-web
 ```
 
 Si se desea correr algún script de ENTRYPOINT específico, como será el caso de la mayoría de los proyectos, en el Dockerfile
-del proyecto hay que agregarlos a la carpeta */entrypoint.d*. Por ejemplo:
+del proyecto hay que agregarlos a la carpeta **/entrypoint.d**. Por ejemplo:
 
 ```
 FROM siutoba/docker-web
