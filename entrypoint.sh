@@ -13,6 +13,8 @@ if [ ! -z "$OSX" ] && [ -z "`grep docker /etc/apache2/apache2.conf`" ]; then
 	sed -i 's/Group www-data/Group staff/' /etc/apache2/apache2.conf
 fi
 
+echo "date.timezone=America/Argentina/Buenos_Aires" > php.ini;
+
 for entrypoint in /entrypoint.d/*.sh
 do
     if [ -f $entrypoint -a -x $entrypoint ]
