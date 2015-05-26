@@ -13,7 +13,10 @@ if [ ! -z "$OSX" ] && [ -z "`grep docker /etc/apache2/apache2.conf`" ]; then
 	sed -i 's/Group www-data/Group staff/' /etc/apache2/apache2.conf
 fi
 
-echo "date.timezone=America/Argentina/Buenos_Aires" > php.ini;
+#Se pasa el access.log a archivo
+sed -i 's|/proc/self/fd/1|/var/log/apache2/access.log|' /etc/apache2/apache2.conf
+#Se pasa el error.log a stdout, para que salga en el log de docker
+sed -i 's|/proc/self/fd/2|/proc/self/fd/1|' /etc/apache2/apache2.conf
 
 for entrypoint in /entrypoint.d/*.sh
 do
