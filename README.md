@@ -21,3 +21,9 @@ RUN chmod +x /entrypoint.d/guarani.sh
 Actualmente esta imagen está basada en la [oficial de PHP](https://registry.hub.docker.com/_/php/). Si se quieren agregar
 extensiones a PHP se debe leer la [documentación](https://registry.hub.docker.com/_/php/) o ver, a modo de ejemplo, el Dockerfile
 de esta imagen. 
+
+## Build
+Para buildear manualmentel la imagen
+```
+docker build -t="siutoba/docker-web" .
+```
