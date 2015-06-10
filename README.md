@@ -22,6 +22,15 @@ Actualmente esta imagen está basada en la [oficial de PHP](https://registry.hub
 extensiones a PHP se debe leer la [documentación](https://registry.hub.docker.com/_/php/) o ver, a modo de ejemplo, el Dockerfile
 de esta imagen. 
 
+## Arranque secuencial de containers
+Esta imagen lee un par de variables de entorno que permite encadenar el arranque de los containers
+```
+    DOCKER_NAME		: Nombre del container, ejemplo "mi_aplicacion"
+    DOCKER_WAIT_FOR	: Nombre del container al cual esperar por ejemplo "otra_aplicacion"
+```
+Para que esto funcione los containers involucrados deben compartir un volumen comun publicado en `/var/local/containers-status`
+
+
 ## Build
 Para buildear manualmentel la imagen
 ```

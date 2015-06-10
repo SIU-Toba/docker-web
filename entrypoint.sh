@@ -13,10 +13,10 @@ if [ ! -z "$OSX" ] && [ -z "`grep docker /etc/apache2/apache2.conf`" ]; then
 	sed -i 's/Group www-data/Group staff/' /etc/apache2/apache2.conf
 fi
 
-DOCKER_STATUS_PATH=/var/local/arai/docker-data/status_containers
+DOCKER_STATUS_PATH=/var/local/containers-status
 mkdir -p $DOCKER_STATUS_PATH
 if [ -z ${DOCKER_WAIT_FOR+x} ]; then
-	echo "continue!";
+	echo "Starting $DOCKER_NAME...";
 else
 	while : ; do
 		[[ -f "$DOCKER_STATUS_PATH/$DOCKER_WAIT_FOR" ]] && break
@@ -35,7 +35,7 @@ do
 done
 
 if [ -n $DOCKER_NAME ]; then
-	touch $DOCKER_STATUS_PATH/$DOCKER_NAME
+	echo $HOSTNAME > $DOCKER_STATUS_PATH/$DOCKER_NAME
 fi
 
 
