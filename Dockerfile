@@ -1,16 +1,15 @@
 FROM php:5.5-apache
 MAINTAINER ablanco@siu.edu.ar
 
-RUN apt-get update && apt-get install -y libpq-dev libpng-dev \
+RUN apt-get update && apt-get install -y git mc nano subversion libpq-dev libpng-dev libmcrypt-dev \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-install gd \
-    && rm -r /var/lib/apt/lists/*
-
-RUN docker-php-ext-install mbstring
-
-RUN apt-get update && apt-get install -y libmcrypt-dev \
     && docker-php-ext-install mcrypt \
+    && docker-php-ext-install mbstring \
     && rm -r /var/lib/apt/lists/*
+
+RUN curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer
 
 RUN pecl install -f apcu
 RUN printf "extension=apcu.so\napc.enabled=1\n" >> /usr/local/etc/php/conf.d/ext-apcu.ini
@@ -21,7 +20,6 @@ RUN printf "log_errors=On\n" >> /usr/local/etc/php/php.ini
 RUN sed -i 's|/proc/self/fd/1|/var/log/apache2/access.log|' /etc/apache2/apache2.conf
 #Se pasa el error.log a stdout, para que salga en el log de docker
 RUN sed -i 's|/proc/self/fd/2|/proc/self/fd/1|' /etc/apache2/apache2.conf
-
 
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
