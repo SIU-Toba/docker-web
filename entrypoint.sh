@@ -34,7 +34,7 @@ do
     fi
 done
 
-if [ -n $DOCKER_NAME ]; then
+if [ ! -z $DOCKER_NAME ]; then
 	echo $HOSTNAME > $DOCKER_STATUS_PATH/$DOCKER_NAME
 fi
 
