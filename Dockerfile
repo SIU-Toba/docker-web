@@ -21,6 +21,9 @@ RUN sed -i 's|/proc/self/fd/1|/var/log/apache2/access.log|' /etc/apache2/apache2
 #Se pasa el error.log a stdout, para que salga en el log de docker
 RUN sed -i 's|/proc/self/fd/2|/proc/self/fd/1|' /etc/apache2/apache2.conf
 
+#Define una variable para poder usar mc
+RUN echo "export TERM=xterm" >> /root/.bashrc
+
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 RUN mkdir /entrypoint.d
