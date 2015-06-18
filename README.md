@@ -28,7 +28,7 @@ Esta imagen lee un par de variables de entorno que permite encadenar el arranque
     DOCKER_NAME		: Nombre del container, ejemplo "mi_aplicacion"
     DOCKER_WAIT_FOR	: Nombre del container al cual esperar por ejemplo "otra_aplicacion"
 ```
-Para que esto funcione los containers involucrados deben compartir un volumen comun publicado en `/var/local/containers-status`
+Para que esto funcione los containers involucrados deben compartir un volumen comun publicado en `/var/local/docker-data/containers-status`
 
 
 ## Build
