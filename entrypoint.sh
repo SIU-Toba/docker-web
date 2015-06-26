@@ -23,6 +23,7 @@ else
 		#echo "."
 		sleep 1
 	done
+	echo "Starting $DOCKER_NAME...";
 fi
 chmod -R a+rw $DOCKER_STATUS_PATH
 
