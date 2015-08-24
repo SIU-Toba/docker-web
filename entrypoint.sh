@@ -39,5 +39,10 @@ if [ ! -z $DOCKER_NAME ]; then
 	echo $HOSTNAME > $DOCKER_STATUS_PATH/$DOCKER_NAME
 fi
 
+if [ ! -z $DOCKER_WEB_SCRIPT ]; then
+	if [ -f $DOCKER_WEB_SCRIPT -a -x $DOCKER_WEB_SCRIPT ]; then
+		$DOCKER_WEB_SCRIPT
+	fi
+fi
 
 exec "$@"
