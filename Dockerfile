@@ -1,4 +1,4 @@
-FROM php:5.5-apache
+FROM php:5.4-apache
 MAINTAINER ablanco@siu.edu.ar
 
 RUN apt-get update && apt-get install -y git mc nano subversion libpq-dev libpng-dev libmcrypt-dev libgmp-dev yui-compressor \

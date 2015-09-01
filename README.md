@@ -34,5 +34,5 @@ Para que esto funcione los containers involucrados deben compartir un volumen co
 ## Build
 Para buildear manualmentel la imagen
 ```
-docker build -t="siutoba/docker-web" .
+docker build -t="siutoba/docker-web:php5.4" .
 ```
