@@ -15,6 +15,9 @@ RUN apt-get update && apt-get install -y git mc nano subversion libpq-dev libpng
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
+#Se agrega PHPUnit
+RUN curl -OsS https://phar.phpunit.de/phpunit.phar && chmod +x phpunit.phar && mv phpunit.phar /usr/local/bin/phpunit
+
 RUN pecl install -f apcu
 RUN printf "extension=apcu.so\napc.enabled=1\n" >> /usr/local/etc/php/conf.d/ext-apcu.ini
 RUN printf "date.timezone=America/Argentina/Buenos_Aires\n" >> /usr/local/etc/php/php.ini
