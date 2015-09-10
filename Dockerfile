@@ -1,13 +1,15 @@
 FROM php:5.5-apache
 MAINTAINER ablanco@siu.edu.ar
 
-RUN apt-get update && apt-get install -y git mc nano subversion libpq-dev libpng-dev libmcrypt-dev libgmp-dev yui-compressor \
+RUN apt-get update && apt-get install -y git mc nano subversion libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev yui-compressor  \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-install gd \
     && docker-php-ext-install mcrypt \
+    && docker-php-ext-install xsl \
     && docker-php-ext-install mbstring \
     && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-install gmp \
+    && apt-get remove -y libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev \
     && rm -r /var/lib/apt/lists/*
 
 RUN curl -sS https://getcomposer.org/installer | php \
