@@ -13,6 +13,14 @@ if [ ! -z "$OSX" ] && [ -z "`grep docker /etc/apache2/apache2.conf`" ]; then
 	sed -i 's/Group www-data/Group staff/' /etc/apache2/apache2.conf
 fi
 
+
+#Si no esta configurado el acceso composer a SIU, y esta presente el parametro, configurarlo
+if [ ! -z ${COMPOSER_SIU_USER} ] && [ ! -z ${COMPOSER_SIU_PASS} ]  && [ ! -f "/root/.composer/auth.json" ]; then
+	mkdir -p /root/.composer
+	echo "{\"http-basic\":{\"gitlab.siu.edu.ar\":{\"username\":\"${COMPOSER_SIU_USER}\",\"password\":\"${COMPOSER_SIU_PASS}\"}}}" > /root/.composer/auth.json
+fi
+
+
 DOCKER_STATUS_PATH=/var/local/docker-data/containers-status
 mkdir -p $DOCKER_STATUS_PATH
 if [ -z ${DOCKER_WAIT_FOR+x} ]; then
