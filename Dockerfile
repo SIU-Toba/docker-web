@@ -16,7 +16,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
 #Se agrega PHPUnit
-RUN curl -OsS https://phar.phpunit.de/phpunit.phar && chmod +x phpunit.phar && mv phpunit.phar /usr/local/bin/phpunit
+RUN curl -OsS https://phar.phpunit.de/phpunit-old.phar && chmod +x phpunit-old.phar && mv phpunit-old.phar /usr/local/bin/phpunit
 
 RUN pecl install -f apcu
 RUN printf "extension=apcu.so\napc.enabled=1\n" >> /usr/local/etc/php/conf.d/ext-apcu.ini
