@@ -31,8 +31,8 @@ Esta imagen lee un par de variables de entorno que permite encadenar el arranque
 Para que esto funcione los containers involucrados deben compartir un volumen comun publicado en `/var/local/docker-data/containers-status`
 
 ## Variables de entorno relevantes
- * COMPOSER_SIU_USER y COMPOSER_SIU_PASS: Utilizadas para configurar el acceso al repositorio GIT del SIU
- * DOCKER_WEB_SCRIPT: Path a un script ejecutado dentro del contenedor como último paso del ENTRYPOINT
+ * `COMPOSER_SIU_USER` y `COMPOSER_SIU_PASS`: Utilizadas para configurar el acceso al repositorio GIT del SIU
+ * `DOCKER_WEB_SCRIPT`: Path a un script ejecutado dentro del contenedor como último paso del ENTRYPOINT
 
 ## Build
 Para buildear manualmentel la imagen
