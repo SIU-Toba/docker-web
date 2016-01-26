@@ -1,9 +1,11 @@
 FROM php:5.5-apache
 MAINTAINER ablanco@siu.edu.ar
 
-RUN apt-get update && apt-get install -y git mc nano subversion libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev yui-compressor  \
+RUN apt-get update && apt-get install -y git mc nano subversion libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev yui-compressor libldap2-dev \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-install gd \
+    && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
+    && docker-php-ext-install ldap \
     && docker-php-ext-install mcrypt \
     && docker-php-ext-install xsl \
     && docker-php-ext-install mbstring \
@@ -18,7 +20,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
 #Se agrega PHPUnit
 RUN curl -OsS https://phar.phpunit.de/phpunit-old.phar && chmod +x phpunit-old.phar && mv phpunit-old.phar /usr/local/bin/phpunit
 
-RUN pecl install -f apcu
+RUN pecl install -f apcu-4.0.10
 RUN printf "extension=apcu.so\napc.enabled=1\n" >> /usr/local/etc/php/conf.d/ext-apcu.ini
 RUN printf "date.timezone=America/Argentina/Buenos_Aires\n" >> /usr/local/etc/php/php.ini
 RUN printf "log_errors=On\n" >> /usr/local/etc/php/php.ini
