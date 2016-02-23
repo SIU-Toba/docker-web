@@ -20,6 +20,9 @@ RUN curl -sS https://getcomposer.org/installer | php \
 #Se agrega PHPUnit
 RUN wget https://phar.phpunit.de/phpunit-4.8.9.phar && chmod +x phpunit-4.8.9.phar && mv phpunit-4.8.9.phar /usr/local/bin/phpunit
 
+# Se instala nodejs, npm y bower
+RUN apt-get update -qq && apt-get install -y -qq npm && ln -s /usr/bin/nodejs /usr/bin/node && npm install --global bower
+
 RUN pecl install -f apcu-4.0.10
 RUN printf "extension=apcu.so\napc.enabled=1\n" >> /usr/local/etc/php/conf.d/ext-apcu.ini
 RUN printf "date.timezone=America/Argentina/Buenos_Aires\n" >> /usr/local/etc/php/php.ini
