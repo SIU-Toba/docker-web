@@ -37,10 +37,13 @@ RUN sed -i 's|/proc/self/fd/2|/proc/self/fd/1|' /etc/apache2/apache2.conf
 RUN echo "export TERM=xterm" >> /root/.bashrc
 
 COPY entrypoint.sh /
+COPY localhost_template.ssl /etc/apache2/localhost_template.ssl
 RUN chmod +x /entrypoint.sh
 RUN mkdir /entrypoint.d
 
 RUN a2enmod rewrite
+
+EXPOSE 443
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["apache2-foreground"]

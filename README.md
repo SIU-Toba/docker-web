@@ -33,7 +33,10 @@ Para que esto funcione los containers involucrados deben compartir un volumen co
 ## Variables de entorno relevantes
  * `COMPOSER_SIU_USER` y `COMPOSER_SIU_PASS`: Utilizadas para configurar el acceso al repositorio GIT del SIU
  * `DOCKER_WEB_SCRIPT`: Path a un script ejecutado dentro del contenedor como último paso del ENTRYPOINT
-
+ * `ENABLE_SSL`: Permite que el webserver se configure para brindar acceso via SSL.
+ * `DOCKER_CERT_FILE`, `DOCKER_KEY_FILE`y `DOCKER_CHAIN_FILE`: Permiten especificar las rutas a los archivos de certificados, clave privada y cadena de CA's en formato pem para configurar el virtualhost
+ * `DOCKER_SSL_PORT`: Especifica que puerto se mapea desde el host (util para redirects).
+ 
 ## Build
 Para buildear manualmentel la imagen
 ```
