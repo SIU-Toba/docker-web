@@ -18,18 +18,21 @@
 # consult the online docs. You have been warned.  
 #
 
+<IfModule mod_headers.c>
+  Header set Strict-Transport-Security "max-age=1234; includeSubdomains"
+</IfModule>
+
 <IfModule mod_ssl.c>
 
-#    NameVirtualHost *:80
-
+    NameVirtualHost *:80
     <VirtualHost *:80>
-        ServerName localhost:80
+        ServerName localhost
         Redirect permanent / https://localhost:___DOCKER_SSL_PORT___/
     </VirtualHost>
     
     <VirtualHost *:443>        
             #  General setup for the virtual host
-            DocumentRoot "/var/www/html"
+            #DocumentRoot "/var/www/html"
             ServerName ___HOSTNAME___:443
             #ServerAdmin webmaster@example.com
             

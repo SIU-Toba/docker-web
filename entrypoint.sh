@@ -54,7 +54,7 @@ do
     fi
 done
 
-if [ ! -z $ENABLE_SSL ] && [ $ENABLE_SSL == 'true' ]; then
+if [ ! -z "${ENABLE_SSL}" ] && [ "${ENABLE_SSL}" = 'true' ]; then
     if [ ! -n "$(find /etc/apache2 -maxdepth 1 -name 'ssl.*' -print -quit)" ]; then
         mkdir /etc/apache2/ssl.crt;
         mkdir /etc/apache2/ssl.key;        
