@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y git mc nano subversion libpq-dev libpng
     && docker-php-ext-install ldap \
     && docker-php-ext-install mcrypt \
     && docker-php-ext-install xsl \
+    && docker-php-ext-install mysql \
     && docker-php-ext-install mbstring \
     && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-install gmp \
