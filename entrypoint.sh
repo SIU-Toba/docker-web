@@ -78,7 +78,9 @@ if [ ! -z "${ENABLE_SSL}" ] && [ "${ENABLE_SSL}" = 'true' ]; then
     a2enmod ssl;
     a2ensite $DOCKER_NAME;
 else
-    a2dissite $DOCKER_NAME;
+    if [ -f /etc/apache2/sites-enabled/$DOCKER_NAME.conf ]; then
+        a2dissite $DOCKER_NAME;
+    fi
 fi
 
 if [ ! -z $DOCKER_WEB_SCRIPT ]; then
