@@ -13,8 +13,16 @@ if [ ! -z "$OSX" ] && [ -z "`grep docker /etc/apache2/apache2.conf`" ]; then
 	sed -i 's/Group www-data/Group staff/' /etc/apache2/apache2.conf
 fi
 
+mkdir -p /root/.composer
+cat <<EOF > /root/.composer/config.json
+{
+"config": {
+       "secure-http" : false
+   }
+}
+EOF
+
 if [ ! -f /root/.composer/auth.json ]; then
-    mkdir -p /root/.composer
     echo "{" > /root/.composer/auth.json;
     if [ ! -z ${GIT_TOKEN_USER} ]; then
         echo "\"github-oauth\": {\"github.com\": \"${GIT_TOKEN_USER}\"}" >> /root/.composer/auth.json;
