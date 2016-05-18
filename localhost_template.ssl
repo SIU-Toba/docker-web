@@ -60,7 +60,7 @@
             #CustomLog /var/log/apache2/ssl_request_log   ssl_combined
             #ErrorLog /var/log/apache2/error_log
             #TransferLog /var/log/apache2/access_log
-            LogLevel info ssl:debug
+            LogLevel info ssl:error
             
             SSLVerifyClient optional_no_ca
             SSLVerifyDepth 2
