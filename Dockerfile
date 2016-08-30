@@ -29,6 +29,10 @@ RUN printf "extension=apcu.so\napc.enabled=1\n" >> /usr/local/etc/php/conf.d/ext
 RUN printf "date.timezone=America/Argentina/Buenos_Aires\n" >> /usr/local/etc/php/php.ini
 RUN printf "log_errors=On\n" >> /usr/local/etc/php/php.ini
 
+# Por defecto se utiliza la timezone de Buenos Aires
+ENV TZ=America/Argentina/Buenos_Aires
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 #Se pasa el access.log a archivo
 RUN sed -i 's|/proc/self/fd/1|/var/log/apache2/access.log|' /etc/apache2/apache2.conf
 #Se pasa el error.log a stdout, para que salga en el log de docker
