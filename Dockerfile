@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y git mc nano subversion libpq-dev libpng
     && docker-php-ext-install xsl \
     && docker-php-ext-install mysql \
     && docker-php-ext-install mbstring \
+    && docker-php-ext-install exif \
     && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-install gmp \
     && apt-get remove -y libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev \
