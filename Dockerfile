@@ -1,7 +1,7 @@
 FROM php:5.6-apache
 MAINTAINER ablanco@siu.edu.ar
 
-RUN apt-get update && apt-get install -y git mc nano subversion libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev yui-compressor libldap2-dev wget \
+RUN apt-get update && apt-get install -y git mc nano vim subversion libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev yui-compressor libldap2-dev wget \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-install gd \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y git mc nano subversion libpq-dev libpng
     && docker-php-ext-install mysql \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install exif \
+    && docker-php-ext-install zip \
     && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-install gmp \
     && apt-get remove -y libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev \
