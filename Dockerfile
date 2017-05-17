@@ -1,9 +1,11 @@
 FROM php:5.6-apache
 MAINTAINER ablanco@siu.edu.ar
 
-RUN apt-get update && apt-get install -y git mc nano vim subversion graphviz libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev yui-compressor libldap2-dev wget \
+RUN apt-get update && apt-get install -y git mc nano vim subversion graphviz libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev yui-compressor libldap2-dev wget libfreetype6-dev libjpeg62-turbo-dev
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-install gd \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
     && docker-php-ext-install ldap \
     && docker-php-ext-install mcrypt \
@@ -15,7 +17,7 @@ RUN apt-get update && apt-get install -y git mc nano vim subversion graphviz lib
     && docker-php-ext-install pcntl \
     && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-install gmp \
-    && apt-get remove -y libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev \
+    && apt-get remove -y libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev libfreetype6-dev libjpeg62-turbo-dev \
     && rm -r /var/lib/apt/lists/*
 
 RUN curl -sS https://getcomposer.org/installer | php \
