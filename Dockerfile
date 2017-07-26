@@ -1,7 +1,7 @@
 FROM php:5.6-apache
 MAINTAINER ablanco@siu.edu.ar
 
-RUN apt-get update && apt-get install -y git mc nano vim subversion graphviz libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev yui-compressor libldap2-dev wget libfreetype6-dev libjpeg62-turbo-dev \
+RUN apt-get update && apt-get install -y git mc nano vim subversion graphviz libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev yui-compressor libldap2-dev wget libfreetype6-dev libjpeg62-turbo-dev postgresql-client \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-install gd \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
