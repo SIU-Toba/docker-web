@@ -1,4 +1,4 @@
-FROM php:7.0-apache
+FROM php:7.1-apache
 MAINTAINER ablanco@siu.edu.ar
 
 RUN apt-get update && apt-get install -y git mc nano vim subversion graphviz libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev  \ 
@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y git mc nano vim subversion graphviz lib
     && docker-php-ext-install pcntl \
     && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-install gmp \
+    && docker-php-ext-install pgsql \
     && apt-get remove -y libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev libfreetype6-dev libjpeg62-turbo-dev \
     && rm -r /var/lib/apt/lists/*
 
