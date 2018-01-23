@@ -1,7 +1,8 @@
-FROM php:5.6-apache
+FROM php:7.0-apache
 MAINTAINER ablanco@siu.edu.ar
 
-RUN apt-get update && apt-get install -y git mc nano vim subversion graphviz libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev yui-compressor libldap2-dev wget libfreetype6-dev libjpeg62-turbo-dev postgresql-client \
+RUN apt-get update && apt-get install -y git mc nano vim subversion graphviz libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev  \ 
+    yui-compressor libldap2-dev wget libfreetype6-dev libjpeg62-turbo-dev postgresql-client \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-install gd \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
@@ -10,13 +11,14 @@ RUN apt-get update && apt-get install -y git mc nano vim subversion graphviz lib
     && docker-php-ext-install ldap \
     && docker-php-ext-install mcrypt \
     && docker-php-ext-install xsl \
-    && docker-php-ext-install mysql \
+    && docker-php-ext-install mysqli \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install exif \
     && docker-php-ext-install zip \
     && docker-php-ext-install pcntl \
     && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-install gmp \
+    && docker-php-ext-install pgsql \
     && apt-get remove -y libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev libfreetype6-dev libjpeg62-turbo-dev \
     && rm -r /var/lib/apt/lists/*
 
@@ -24,12 +26,12 @@ RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
 #Se agrega PHPUnit
-RUN wget https://phar.phpunit.de/phpunit-4.8.9.phar && chmod +x phpunit-4.8.9.phar && mv phpunit-4.8.9.phar /usr/local/bin/phpunit
+RUN wget https://phar.phpunit.de/phpunit-5.7.21.phar && chmod +x phpunit-5.7.21.phar && mv phpunit-5.7.21.phar /usr/local/bin/phpunit
 
 # Se instala nodejs, npm y bower
 RUN apt-get update -qq && apt-get install -y -qq npm && ln -s /usr/bin/nodejs /usr/bin/node && npm install --global bower
 
-RUN pecl install -f apcu-4.0.10
+RUN pecl install -f apcu-5.1.8
 RUN printf "extension=apcu.so\napc.enabled=1\n" >> /usr/local/etc/php/conf.d/ext-apcu.ini
 RUN printf "date.timezone=America/Argentina/Buenos_Aires\n" >> /usr/local/etc/php/php.ini
 RUN printf "log_errors=On\n" >> /usr/local/etc/php/php.ini
