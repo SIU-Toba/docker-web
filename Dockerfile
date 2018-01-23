@@ -1,4 +1,4 @@
-FROM php:7.1-apache
+FROM php:7.0-apache
 MAINTAINER ablanco@siu.edu.ar
 
 RUN apt-get update && apt-get install -y git mc nano vim subversion graphviz libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev  \ 
