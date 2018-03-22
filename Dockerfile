@@ -1,6 +1,8 @@
 FROM php:7.0-apache
 MAINTAINER ablanco@siu.edu.ar
 
+RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/sources.list
+
 RUN apt-get update && apt-get install -y git mc nano vim subversion graphviz libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev  \ 
     yui-compressor libldap2-dev wget libfreetype6-dev libjpeg62-turbo-dev postgresql-client \
     && docker-php-ext-install pdo_pgsql \
@@ -19,6 +21,7 @@ RUN apt-get update && apt-get install -y git mc nano vim subversion graphviz lib
     && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-install gmp \
     && docker-php-ext-install pgsql \
+    && apt-get -t jessie-backports install libsodium-dev libsodium18 \
     && apt-get remove -y libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev libfreetype6-dev libjpeg62-turbo-dev \
     && rm -r /var/lib/apt/lists/*
 
@@ -31,8 +34,10 @@ RUN wget https://phar.phpunit.de/phpunit-5.7.21.phar && chmod +x phpunit-5.7.21.
 # Se instala nodejs, npm y bower
 RUN apt-get update -qq && apt-get install -y -qq npm && ln -s /usr/bin/nodejs /usr/bin/node && npm install --global bower
 
-RUN pecl install -f apcu-5.1.8
+RUN pecl install -f apcu
+RUN pecl install -f libsodium-1.0.6
 RUN printf "extension=apcu.so\napc.enabled=1\n" >> /usr/local/etc/php/conf.d/ext-apcu.ini
+RUN printf "extension=libsodium.so\n" >> /usr/local/etc/php/conf.d/ext-libsodium.ini
 RUN printf "date.timezone=America/Argentina/Buenos_Aires\n" >> /usr/local/etc/php/php.ini
 RUN printf "log_errors=On\n" >> /usr/local/etc/php/php.ini
 
