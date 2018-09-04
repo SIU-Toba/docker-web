@@ -3,8 +3,8 @@ MAINTAINER ablanco@siu.edu.ar
 
 RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y git mc nano vim subversion graphviz libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev  \ 
-    yui-compressor libldap2-dev wget libfreetype6-dev libjpeg62-turbo-dev postgresql-client \
+RUN apt-get update && apt-get install -y gnupg git mc nano vim subversion graphviz libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev  \ 
+    libldap2-dev wget libfreetype6-dev libjpeg62-turbo-dev \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-install gd \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
@@ -20,7 +20,6 @@ RUN apt-get update && apt-get install -y git mc nano vim subversion graphviz lib
     && docker-php-ext-install pcntl \
     && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-install gmp \
-    && docker-php-ext-install pgsql \
     && apt-get -t jessie-backports install libsodium-dev libsodium18 \
     && apt-get remove -y libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev libfreetype6-dev libjpeg62-turbo-dev \
     && rm -r /var/lib/apt/lists/*
@@ -29,10 +28,13 @@ RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
 #Se agrega PHPUnit
-RUN wget https://phar.phpunit.de/phpunit-5.7.21.phar && chmod +x phpunit-5.7.21.phar && mv phpunit-5.7.21.phar /usr/local/bin/phpunit
+RUN wget https://phar.phpunit.de/phpunit-5.7.27.phar && chmod +x phpunit-5.7.27.phar && mv phpunit-5.7.27.phar /usr/local/bin/phpunit
 
-# Se instala nodejs, npm y bower
-RUN apt-get update -qq && apt-get install -y -qq npm && ln -s /usr/bin/nodejs /usr/bin/node && npm install --global bower
+# Se instala nodejs, npm , bower y yarn
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list.d/yarn.list
+RUN apt-get update -qq && apt-get install -y -qq nodejs yarn && npm install --global bower
 
 RUN pecl install -f apcu
 RUN pecl install -f libsodium-1.0.6
