@@ -1,7 +1,7 @@
-FROM php:7.0-apache
+FROM php:7.1-apache
 MAINTAINER ablanco@siu.edu.ar
 
-RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/sources.list
+RUN echo "deb http://ftp.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y gnupg git mc nano vim subversion graphviz libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev  \ 
     libldap2-dev wget libfreetype6-dev libjpeg62-turbo-dev \
@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y gnupg git mc nano vim subversion graphv
     && docker-php-ext-install pcntl \
     && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-install gmp \
-    && apt-get -t jessie-backports install libsodium-dev libsodium18 \
+    && apt-get -t stretch-backports install libsodium-dev libsodium18 libsodium23 \
     && apt-get remove -y libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev libfreetype6-dev libjpeg62-turbo-dev \
     && rm -r /var/lib/apt/lists/*
 
