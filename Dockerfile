@@ -6,6 +6,7 @@ RUN echo "deb http://ftp.debian.org/debian stretch-backports main" >> /etc/apt/s
 RUN apt-get update && apt-get install -y gnupg git mc nano vim subversion graphviz libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev  \ 
     libldap2-dev wget libfreetype6-dev libjpeg62-turbo-dev \
     && docker-php-ext-install pdo_pgsql \
+    && docker-php-ext-install pgsql \
     && docker-php-ext-install gd \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
