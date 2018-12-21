@@ -25,6 +25,10 @@ RUN apt-get update && apt-get install -y gnupg git mc nano vim subversion graphv
     && apt-get remove -y libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev libfreetype6-dev libjpeg62-turbo-dev \
     && rm -r /var/lib/apt/lists/*
 
+# Agrega el cliente psql
+RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' > /etc/apt/sources.list.d/pgdg.list
+RUN curl -sS https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
@@ -35,7 +39,7 @@ RUN wget https://phar.phpunit.de/phpunit-5.7.27.phar && chmod +x phpunit-5.7.27.
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list.d/yarn.list
-RUN apt-get update -qq && apt-get install -y -qq nodejs yarn && npm install --global bower
+RUN apt-get update -qq && apt-get install -y -qq nodejs yarn postgresql-client-9.6 && npm install --global bower
 
 RUN pecl install -f apcu
 RUN pecl install -f libsodium-1.0.6
