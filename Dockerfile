@@ -1,9 +1,7 @@
-FROM php:7.1-apache
+FROM php:7.3-apache
 MAINTAINER ablanco@siu.edu.ar
 
-RUN echo "deb http://ftp.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
-
-RUN apt-get update && apt-get install -y gnupg git mc nano vim subversion graphviz libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev  \ 
+RUN apt-get update && apt-get install -y gnupg git mc nano vim subversion graphviz libsodium23 libsodium-dev libpq-dev libpng-dev libgmp-dev libxslt1-dev  \ 
     libldap2-dev wget libfreetype6-dev libjpeg62-turbo-dev \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-install pgsql \
@@ -12,17 +10,15 @@ RUN apt-get update && apt-get install -y gnupg git mc nano vim subversion graphv
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
     && docker-php-ext-install ldap \
-    && docker-php-ext-install mcrypt \
     && docker-php-ext-install xsl \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install exif \
-    && docker-php-ext-install zip \
     && docker-php-ext-install pcntl \
     && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-install gmp \
-    && apt-get -t stretch-backports install libsodium-dev libsodium18 libsodium23 \
-    && apt-get remove -y libpq-dev libpng-dev libmcrypt-dev libgmp-dev libxslt1-dev libfreetype6-dev libjpeg62-turbo-dev \
+    && docker-php-ext-install sodium \
+    && apt-get remove -y libpq-dev libpng-dev libgmp-dev libxslt1-dev libfreetype6-dev libjpeg62-turbo-dev \
     && rm -r /var/lib/apt/lists/*
 
 # Agrega el cliente psql
@@ -33,18 +29,16 @@ RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
 #Se agrega PHPUnit
-RUN wget https://phar.phpunit.de/phpunit-5.7.27.phar && chmod +x phpunit-5.7.27.phar && mv phpunit-5.7.27.phar /usr/local/bin/phpunit
+RUN wget https://phar.phpunit.de/phpunit-8.phar && chmod +x phpunit-8.phar && mv phpunit-8.phar /usr/local/bin/phpunit
 
 # Se instala nodejs, npm , bower y yarn
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list.d/yarn.list
-RUN apt-get update -qq && apt-get install -y -qq nodejs yarn postgresql-client-9.6 && npm install --global bower
+RUN apt-get update -qq && apt-get install -y -qq nodejs yarn postgresql-client-11
 
 RUN pecl install -f apcu
-RUN pecl install -f libsodium-1.0.6
 RUN printf "extension=apcu.so\napc.enabled=1\n" >> /usr/local/etc/php/conf.d/ext-apcu.ini
-RUN printf "extension=libsodium.so\n" >> /usr/local/etc/php/conf.d/ext-libsodium.ini
 RUN printf "date.timezone=America/Argentina/Buenos_Aires\n" >> /usr/local/etc/php/php.ini
 RUN printf "log_errors=On\n" >> /usr/local/etc/php/php.ini
 
