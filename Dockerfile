@@ -1,7 +1,7 @@
 FROM php:7.3-apache
 MAINTAINER ablanco@siu.edu.ar
 
-RUN apt-get update && apt-get install -y gnupg git mc nano vim subversion graphviz libsodium23 libsodium-dev libpq-dev libpng-dev libgmp-dev libxslt1-dev  \ 
+RUN apt-get update && apt-get install -y gnupg git mc nano vim subversion graphviz libsodium23 libsodium-dev libpq-dev libpng-dev libgmp-dev libxslt1-dev libzip-dev  \ 
     libldap2-dev wget libfreetype6-dev libjpeg62-turbo-dev \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-install pgsql \
@@ -18,7 +18,8 @@ RUN apt-get update && apt-get install -y gnupg git mc nano vim subversion graphv
     && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-install gmp \
     && docker-php-ext-install sodium \
-    && apt-get remove -y libpq-dev libpng-dev libgmp-dev libxslt1-dev libfreetype6-dev libjpeg62-turbo-dev \
+    && docker-php-ext-install zip \
+    && apt-get remove -y libpq-dev libpng-dev libgmp-dev libxslt1-dev libfreetype6-dev libjpeg62-turbo-dev libzip-dev \
     && rm -r /var/lib/apt/lists/*
 
 # Agrega el cliente psql
