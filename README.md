@@ -2,7 +2,8 @@
 [![](https://images.microbadger.com/badges/version/siutoba/docker-web.svg)](http://microbadger.com/images/siutoba/docker-web "Get your own version badge on microbadger.com")
 
 # docker-web
-Contenedor Docker que sirve como base para proyectos basados en SIU-Toba.
+Contenedor Docker que sirve como base para proyectos basados en SIU-Toba. 
+Este paquete se encuentra deprecado, ver [siu-toba/docker](https://github.com/SIU-Toba/docker) como futuro reemplazo.
 
 ## Uso
 Los proyectos que quieran utilizar este proyecto deberán basar sus imagenes desde **siutoba/docker-web** usando FROM en el Dockerfile
